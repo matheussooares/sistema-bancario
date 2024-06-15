@@ -28,4 +28,7 @@ Este projeto tem como objetivo criar a primeira versão de um sistema bancário 
 
 - Python 3.x
 
+## Referências 
+[DIO: Python AI Backend Developer](https://web.dio.me/track/70304c16-a7d8-4066-97de-16345e1653a6)
+
 
