@@ -1,14 +1,11 @@
-menu = """
-============ MENU =============
+def menu():
+    view = """============ MENU =============\n
     [d] Deposito
     [s] Sacar
     [e] Extrato
-    [x] Sair
-===============================
-"""
-saldo = 0
-extratos = ''
-num_saques = 0
+    [x] Sair\n===============================
+    """
+    return view
 
 def extrato(extratos,saldo):
     print('=========== EXTRATO ===========')
@@ -56,18 +53,23 @@ def saque(saldo, extratos, num_saques):
 
 
 
+def main():
+    saldo = 0
+    extratos = ''
+    num_saques = 0
 
-while True:
-    opc = input(menu)
+    while True:
+        opc = input(menu())
 
-    if opc == 'd':
-        saldo,extratos = deposito(saldo,extratos)
-    elif opc == 's':
-        saldo,extratos,num_saques = saque(saldo, extratos, num_saques)
-    elif opc == 'e':
-        extrato(extratos,saldo)
-    elif opc == 'x':
-        break
-    else:
-        print('Digite um valor válido')
+        if opc == 'd':
+            saldo, extratos = deposito(saldo,extratos)
+        elif opc == 's':
+            saldo, extratos, num_saques = saque(saldo, extratos, num_saques)
+        elif opc == 'e':
+            extrato(extratos,saldo)
+        elif opc == 'x':
+            break
+        else:
+            print('Digite um valor válido')
 
+main()
