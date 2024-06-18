@@ -1,12 +1,14 @@
 def menu():
     view = """============ MENU =============\n
     [nu] Novo usuário
+    [nc] Nova Conta
     [d] Deposito
     [s] Sacar
     [e] Extrato
     [x] Sair \n==>
     """
     return input(view)
+
 
 def extrato(saldo, /,*,extratos):
     print('=========== EXTRATO ===========')
@@ -58,7 +60,7 @@ def usuario(usuarios):
     cpf = input('Digite seu CPF: ')
     user = filtro_usuario(cpf,usuarios)
 
-    if user == False:
+    if user:
         print('n@@@ Falha no usuário: cpf existente @@@\n')
     else:
         nome = input('Nome completo: ')
@@ -74,27 +76,45 @@ def usuario(usuarios):
     
     return usuarios
 
-def conta(usuarios,contas,numero_conta):
+def conta(usuarios,contas):
     AGENCIA = '0001'
     cpf = input('Digite seu CPF: ')
     user = filtro_usuario(cpf,usuarios)
 
-    if user == False:
+    if user == None:
         print('n@@@ Falha no usuário: cpf não encontrado @@@\n')
     
     else:
+        numero_conta = len(contas) + 1
         contas.append({'agencia':AGENCIA,
-                       'numero conta': numero_conta
+                       'numero conta': numero_conta,
+                       'Usuário': user
                        })
+        numero_conta+=1
+        print('\n=== Criação de conta realiza com sucesso ===\n')
     
     return usuarios, contas
 
+def listar_contas(contas):
+    for conta in contas:
+        print(f"Agência: {conta['agencia']}\nConta: {conta['numero conta']}\nTitular: {conta['Usuário']['nome']}")
 
 
 def filtro_usuario(cpf,usuarios):
+    usuario_filtrado = None
+
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
-            return False
+            usuario_filtrado = usuario
+            break
+
+    
+    if usuario_filtrado:
+        return usuario_filtrado
+    else:
+        return None
+
+
 
 def main():
     saldo = 0
@@ -103,6 +123,7 @@ def main():
     usuarios = []
     contas = []
     LIMITE = 500.00
+    
 
     while True:
         opc = menu()
@@ -115,6 +136,9 @@ def main():
                                                 num_saques = num_saques)
         elif opc == 'e':
             extrato(saldo, extratos = extratos)
+        elif opc =='nc':
+            usuarios, contas = conta(usuarios, contas)
+            listar_contas(contas)
         elif opc == 'x':
             break
         elif opc == 'nu':
