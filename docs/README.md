@@ -7,7 +7,7 @@ Bem-vindo ao projeto **Sistema Bancário**! Fomos contratados por um grande banc
 Este projeto tem como objetivo criar a primeira versão de um sistema bancário com funcionalidades básicas de depósito, saque e extrato. A implementação do código seguiram o seguinte modelo de classes UML:
 
 <div align="center">
-  <img src="figs/UML.png" alt="Braço robótico didático" width="400" height="200">
+  <img src="figs/UML.png" alt="Braço robótico didático" width="700" height="400">
   <br>
   <em>Figura 1: Diagrama de classes UML</em>
 </div>
