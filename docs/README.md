@@ -5,15 +5,14 @@ Bem-vindo ao projeto **Sistema Bancário**! Fomos contratados por um grande banc
 ## 📋 Descrição
 
 Este projeto tem como objetivo criar a primeira versão de um sistema bancário com funcionalidades básicas de depósito, saque e extrato. A implementação do código seguiram o seguinte modelo de classes UML:
-<div align="center">
-    <img src="figs/UML.png" alt="Braço robótico didático" width="400" height="200">
-    <br>
-    <em>Figura 1: Modelo de classes</em>
-<div>
 
+<div align="center">
+  <img src="figs/UML.png" alt="Braço robótico didático" width="400" height="200">
+  <br>
+  <em>Figura 1: Diagrama de classes UML</em>
+</div>
 
 Vamos explorar cada uma dessas operações:
-
 - 💰 Depósito:
     - Deve ser possível depositar valores positivos na conta bancária.
     - A v1 do projeto trabalha apenas com 1 usuário, portanto, não precisamos identificar o número da agência e conta bancária.
