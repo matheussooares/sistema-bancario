@@ -1,5 +1,6 @@
 import datetime
 from abc import ABC, abstractmethod
+
 class Conta:
     def __init__(self, numero: int, cliente):
         self._agencia = '0001'
@@ -9,7 +10,7 @@ class Conta:
         self._historico = Historico()
 
     @classmethod
-    def conta(cls, cliente, numero):
+    def add_conta(cls, cliente, numero):
         return cls(numero, cliente)
     
     @property
@@ -34,7 +35,6 @@ class Conta:
     
     def sacar(self, valor):
         saldo = self.saldo
-
         if valor > saldo:
             print('\n@@@ Falha na operação: saldo insuficiente @@@\n')
         elif valor > 0:
@@ -94,9 +94,14 @@ class ContaCorrente(Conta):
 
 class Historico:
     def __init__(self):
-        self.transacoes = []
+        self._transacoes = []
+    
+    @property
+    def transacoes(self):
+        return self._transacoes
 
     def transacao(self,transacao):
+        # Armazena a transação como dicionário
         self.transacoes.append(
             {
                 "tipo": transacao.__class__.__name__,
@@ -110,10 +115,12 @@ class Cliente:
         self._endereco = endereco
         self._contas = []
 
+    # realizar transação
     def transacao(self, conta, transacao):
         transacao.registrar(conta)
 
-    def conta(self, conta: Conta):
+    # adicionar conta ao usuário
+    def add_conta(self, conta: Conta):
         self._contas.append(conta)
     
 class Pessoa(Cliente):
@@ -134,21 +141,27 @@ class Transacao(ABC):
         pass
 
 class Saque(Transacao):
-    def __init__(self,_valor):
-        self._valor = _valor
+    def __init__(self,valor):
+        self._valor = valor
     
     @property
     def valor(self):
         return self._valor
     
+    def registrar(self, conta):
+        sucesso = conta.sacar(self._valor)
+        if sucesso:
+            conta._historico.transacao(self)
+
+class Deposito(Transacao):
+    def __init__(self,valor):
+        self._valor = valor
     
-
-pessoa = Pessoa(cpf="07871",
-                nome="jose matheus",
-                data_nascimento="10/06",
-                endereco = "Rua natal")
-
-conta = ContaCorrente(numero = 1,cliente = pessoa)
-
-conta.depositar(100)
-conta.sacar(1000)
+    @property
+    def valor(self):
+        return self._valor
+    
+    def registrar(self, conta):
+        sucesso = conta.depositar(self._valor)
+        if sucesso:
+            conta._historico.transacao(self)
