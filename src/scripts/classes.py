@@ -10,8 +10,8 @@ class Conta:
         self._historico = Historico()
 
     @classmethod
-    def add_conta(cls, cliente, numero):
-        return cls(numero, cliente)
+    def add_conta(cls, **arg):
+        return cls(**arg)
     
     @property
     def saldo(self):
@@ -124,7 +124,7 @@ class Cliente:
         self._contas.append(conta)
     
 class Pessoa(Cliente):
-    def __init__(self, cpf: str, nome: str, data_nascimento: str, **kw):
+    def __init__(self, cpf: int, nome: str, data_nascimento: str, **kw):
         self._cpf = cpf
         self._nome = nome
         self._data_nascimento = data_nascimento

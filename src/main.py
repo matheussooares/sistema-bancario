@@ -9,45 +9,24 @@ def main():
         opc = utils.menu()
 
         if opc == 'd':
-            utils.depositar(saldo,extratos)
+            utils.depositar(clientes)
         elif opc == 's':
-            saldo, extratos, num_saques = saque(
-                                                saldo = saldo,
-                                                extratos = extratos, 
-                                                num_saques = num_saques)
+            utils.sacar(clientes)
         elif opc == 'e':
-            extrato(saldo, extratos = extratos)
+            utils.extrato(clientes)
         elif opc =='nc':
-            usuarios, contas = conta(usuarios, contas)
-            listar_contas(contas)
+            num_conta = len(contas)+1
+            utils.criar_conta(clientes, contas, num_conta)
         elif opc == 'x':
             break
         elif opc == 'nu':
-            usuarios = usuario(usuarios)
+            utils.criar_cliente(clientes)
+        elif opc == 'lc':
+            utils.contas(contas)
         else:
             print('\n@@@ Falha na operação: digite um valor válido @@@\n')
 
-# joao = classes.Pessoa(cpf="07871",
-#                 nome="jose matheus",
-#                 data_nascimento="10/06",
-#                 endereco = "Rua natal")
 
-# conta = classes.Conta(numero = 1, cliente = joao)
-
-# conta_corrente = classes.ContaCorrente(numero = 1,cliente = joao)
+main()
 
 
-
-# print(conta_corrente)
-
-
-# valor = float(input("Quando deseja depositar: "))
-
-# conta_corrente.depositar(valor)
-# conta.depositar(valor)
-
-
-
-
-# valor = float(input("Quando deseja depositar: "))
-# conta.sacar(valor)
