@@ -4,12 +4,6 @@ Bem-vindo ao projeto **Sistema Bancário**! Fomos contratados por um grande banc
 
 ## 📋 Descrição
 
-Este projeto tem como objetivo criar a primeira versão de um sistema bancário com funcionalidades básicas de depósito, s# 🏦 Sistema Bancário
-
-Bem-vindo ao projeto **Sistema Bancário**! Fomos contratados por um grande banco para modernizar suas operações e escolhemos a linguagem Python para desenvolver esse novo sistema. Vamos juntos nessa missão? 🚀
-
-## 📋 Descrição
-
 Este projeto tem como objetivo criar a primeira versão de um sistema bancário com funcionalidades básicas de depósito, saque e extrato. A implementação do código seguiram o seguinte modelo de classes UML:
 
 <div align="center">
