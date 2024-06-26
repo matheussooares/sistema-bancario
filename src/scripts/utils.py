@@ -1,4 +1,5 @@
 from scripts import classes
+from scripts.decoradores import log_transacao, contaIterado
 
 
 def menu():
@@ -41,6 +42,8 @@ def filtro_cliente(clientes,cpf=None):
     else:
         return None
 
+
+@log_transacao
 def depositar(clientes):
     # Retorna o cliente
     cliente = filtro_cliente(clientes)
@@ -61,6 +64,7 @@ def depositar(clientes):
     
     return
 
+@log_transacao
 def sacar(clientes):
     # Retorna o cliente
     cliente = filtro_cliente(clientes)
@@ -80,6 +84,7 @@ def sacar(clientes):
         cliente.transacao(conta, transacao)
     return
 
+@log_transacao
 def extrato(clientes):
     # Retorna o cliente
     cliente = filtro_cliente(clientes)
@@ -99,13 +104,14 @@ def extrato(clientes):
             print('Não foi realizado nenhuma movimentação')
         else:
             for transacao in transacoes:
-                extrato += f"\n{transacao['data']}\n{transacao['tipo']}:\n\tR$ {transacao['valor']:.2f}"
+                extrato += f"\n{transacao['data']}\n{transacao['tipo']}:\tR$ {transacao['valor']:.2f}"
             
             print(extrato)
             print(f"\nSaldo:\t R${conta.saldo:.2f}")
-            print('===============================')
+            
     return
 
+@log_transacao
 def criar_conta(clientes, contas: list, num_conta: int):
    # Retorna o cliente
     cliente = filtro_cliente(clientes)
@@ -120,6 +126,7 @@ def criar_conta(clientes, contas: list, num_conta: int):
 
     return
 
+@log_transacao
 def criar_cliente(clientes: list):
     # Retorna o cliente
     cpf = int(input('Informe o CPF do cliente: '))
@@ -143,6 +150,7 @@ def criar_cliente(clientes: list):
         print('\n=== Criação de usuário realiza com sucesso ===\n')
     return 
 
+@log_transacao
 def contas(contas):
     if contas:
         for conta in contas:

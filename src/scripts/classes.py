@@ -109,14 +109,37 @@ class Historico:
                 "data": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             }
         )
+    
+    def relatorio(self, tipo_transacao = None):
+        for transacao in self._transacoes:
+            if tipo_transacao:
+                yield transacao
+            elif tipo_transacao == transacao["tipo"]:
+                yield transacao
+        
+
+    # Retorna o número de transações realizadas no dia
+    def transacoes_dia(self):
+        transacoes_atual = []
+        data_atual = datetime.now().date()
+        for transacao in self._transacoes:
+            data_tansacao = datetime.strftime(transacao["data"], "%d/%m/%Y %H:%M:%S").date()
+            if data_atual == data_tansacao:
+                transacoes_atual.append(data_tansacao)
+        return transacoes_atual
 
 class Cliente:
     def __init__(self, endereco: str):
         self._endereco = endereco
         self._contas = []
 
-    # realizar transação
+    # realizar transações
     def transacao(self, conta, transacao):
+        # Analisa o número de transações diárias
+        num_transacoes = len(conta._historico.transacoes_dia())
+        if num_transacoes >=10:
+            print("\n@@@ Falha na operação: exedeu o máximo de transações diárias @@@\n")
+            return
         transacao.registrar(conta)
 
     # adicionar conta ao usuário
