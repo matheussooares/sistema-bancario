@@ -34,7 +34,7 @@ class Conta:
         return self._historico
     
     def sacar(self, valor):
-        saldo = self.saldo
+        saldo = self._saldo
         if valor > saldo:
             print('\n@@@ Falha na operação: saldo insuficiente @@@\n')
         elif valor > 0:
@@ -66,7 +66,7 @@ class ContaCorrente(Conta):
         # Fução que conta o número de saques
         def saques(historico):
             num_saque = 0
-            for transacao in historico:
+            for transacao in historico._transacoes:
                 if transacao['tipo'] == "Saque":
                     num_saque +=1
             return num_saque
@@ -76,11 +76,11 @@ class ContaCorrente(Conta):
 
         if valor > self._saldo:
             print('\n@@@ Falha na operação: saldo insuficiente @@@\n')
-
         elif num_saques >= self._LIMITE_SAQUES:
             print('\n@@@ Falha na operação: excedeu número máximos de saque @@@\n')
-    
-        elif valor > 0 and  valor <= self._LIMITE:
+        elif valor >= self._LIMITE:
+            print('\n@@@ Falha na operação: valor execede ao limite de saque @@@\n')
+        elif valor > 0 and valor <= self._LIMITE:
            return super().sacar(valor)
     
         else:
@@ -105,8 +105,8 @@ class Historico:
         self.transacoes.append(
             {
                 "tipo": transacao.__class__.__name__,
-                "Valor": transacao.valor,
-                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s")
+                "valor": transacao.valor,
+                "data": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             }
         )
 

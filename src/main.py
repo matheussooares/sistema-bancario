@@ -21,7 +21,7 @@ def main():
             break
         elif opc == 'nu':
             utils.criar_cliente(clientes)
-        elif opc == 'lc':
+        elif opc == 'ce':
             utils.contas(contas)
         else:
             print('\n@@@ Falha na operação: digite um valor válido @@@\n')

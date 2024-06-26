@@ -5,6 +5,7 @@ def menu():
     view = """============ MENU =============\n
     [nu] Novo usuário
     [nc] Nova Conta
+    [ce] Contas Existentes
     [d] Deposito
     [s] Sacar
     [e] Extrato
@@ -84,7 +85,7 @@ def extrato(clientes):
     cliente = filtro_cliente(clientes)
 
     if cliente == None:
-        print('n@@@ Falha no usuário: cpf não encontrado @@@\n')
+        print('\n@@@ Falha no usuário: cpf não encontrado @@@\n')
     else:  
         extrato = "" 
         conta  = conta_cliente(cliente)
@@ -98,7 +99,7 @@ def extrato(clientes):
             print('Não foi realizado nenhuma movimentação')
         else:
             for transacao in transacoes:
-                extrato += f"\nR$ {transacao['tipo']}:\n\t{transacao['valor']:.2f}\t -\t{transacao['data']}"
+                extrato += f"\n{transacao['data']}\n{transacao['tipo']}:\n\tR$ {transacao['valor']:.2f}"
             
             print(extrato)
             print(f"\nSaldo:\t R${conta.saldo:.2f}")
@@ -143,6 +144,10 @@ def criar_cliente(clientes: list):
     return 
 
 def contas(contas):
-    for conta in contas:
+    if contas:
+        for conta in contas:
+            print('===============================')
+            print(str(conta))
+    else:
         print('===============================')
-        print(str(conta))
+        print('Não existe contas associadas')
