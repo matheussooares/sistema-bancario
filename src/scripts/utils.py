@@ -10,14 +10,13 @@ def menu():
     [d] Deposito
     [s] Sacar
     [e] Extrato
-    [x] Sair \n==>
-    """
-    return input(view)
+    [x] Sair \n==>"""
+    return input(view).lower()
 
 def conta_cliente(cliente):
     # Analisa se o cliente possui uma conta
     if not cliente._contas:
-        print('n@@@ Falha no usuário: não possuie conta @@@\n')
+        print('n@@@ Falha no usuário: não possuie conta @@@')
         return
     
     # Não pega o numero a conta
@@ -49,7 +48,7 @@ def depositar(clientes):
     cliente = filtro_cliente(clientes)
 
     if cliente == None:
-        print('\n@@@ Falha no usuário: cpf não encontrado @@@\n')
+        print('\n@@@ Falha no usuário: cpf não encontrado @@@')
     else:    
         conta = conta_cliente(cliente)
 
@@ -70,7 +69,7 @@ def sacar(clientes):
     cliente = filtro_cliente(clientes)
 
     if cliente == None:
-        print('n@@@ Falha no usuário: cpf não encontrado @@@\n')
+        print('n@@@ Falha no usuário: cpf não encontrado @@@')
         
     else:
         conta  = conta_cliente(cliente)
@@ -90,24 +89,31 @@ def extrato(clientes):
     cliente = filtro_cliente(clientes)
 
     if cliente == None:
-        print('\n@@@ Falha no usuário: cpf não encontrado @@@\n')
+        print('\n@@@ Falha no usuário: cpf não encontrado @@@')
     else:  
         extrato = "" 
         conta  = conta_cliente(cliente)
         
         if not conta:
             return
-        
-        transacoes = conta.historico.transacoes
-        print('=========== EXTRATO ===========')
-        if not transacoes:
-            print('Não foi realizado nenhuma movimentação')
-        else:
-            for transacao in transacoes:
-                extrato += f"\n{transacao['data']}\n{transacao['tipo']}:\tR$ {transacao['valor']:.2f}"
-            
-            print(extrato)
-            print(f"\nSaldo:\t R${conta.saldo:.2f}")
+        else: 
+            tipo_transacao = input("saque/deposito/ambos")
+            if tipo_transacao == "ambos":
+                tipo_transacao = None
+
+            transacoes = conta._historico.transacoes
+            print('=========== EXTRATO ===========')
+            if not transacoes:
+                print('@@@ Não foi realizado nenhuma movimentação @@@')
+            else:
+                for transacao in conta._historico.relatorio(tipo_transacao):
+                    extrato += f"\n{transacao['data']}\n{transacao['tipo']}:\tR$ {transacao['valor']:.2f}"
+                
+                if extrato:
+                    print(extrato)
+                    print(f"\nSaldo:\t R${conta.saldo:.2f}")
+                else:
+                    print(f'@@@ Não foi realizado nenhuma movimentação de {tipo_transacao} @@@')
             
     return
 
@@ -117,12 +123,12 @@ def criar_conta(clientes, contas: list, num_conta: int):
     cliente = filtro_cliente(clientes)
 
     if cliente == None:
-        print('n@@@ Falha no usuário: cpf não encontrado @@@\n')
+        print('n@@@ Falha no usuário: cpf não encontrado @@@')
     else:
         conta = classes.ContaCorrente.add_conta(numero = num_conta, cliente = cliente)
         contas.append(conta)
         cliente._contas.append(conta)
-        print('\n=== Criação de conta realiza com sucesso ===\n')
+        print('\n=== Criação de conta realiza com sucesso ===')
 
     return
 
@@ -133,7 +139,7 @@ def criar_cliente(clientes: list):
     cliente = filtro_cliente(clientes,cpf)
 
     if cliente:
-        print('n@@@ Falha no usuário: cpf existente @@@\n')
+        print('n@@@ Falha no usuário: cpf existente @@@')
     else:
         nome = input('Nome completo: ')
         data_nascimento = input('Data de nascimento: ')
@@ -147,7 +153,7 @@ def criar_cliente(clientes: list):
         
         clientes.append(cliente)
 
-        print('\n=== Criação de usuário realiza com sucesso ===\n')
+        print('\n=== Criação de usuário realiza com sucesso ===')
     return 
 
 @log_transacao

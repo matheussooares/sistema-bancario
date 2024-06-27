@@ -36,13 +36,13 @@ class Conta:
     def sacar(self, valor):
         saldo = self._saldo
         if valor > saldo:
-            print('\n@@@ Falha na operação: saldo insuficiente @@@\n')
+            print('\n@@@ Falha na operação: saldo insuficiente @@@')
         elif valor > 0:
             self._saldo -= valor
-            print('\n=== Operação saque realiza com sucesso ===\n')
+            print('\n=== Operação saque realiza com sucesso ===')
             return True
         else:
-            print('\n@@@ Falha na operação: valor inválido @@@\n')
+            print('\n@@@ Falha na operação: valor inválido @@@')
         
         return False
     
@@ -52,7 +52,7 @@ class Conta:
             print('\n=== Operação de deposito realiza com sucesso ===')
             return True
         else:
-            print('\n@@@ Falha na operação: valor inválido @@@\n')
+            print('\n@@@ Falha na operação: valor inválido @@@')
             return False
 
 class ContaCorrente(Conta):
@@ -75,16 +75,16 @@ class ContaCorrente(Conta):
         num_saques = saques(self._historico)
 
         if valor > self._saldo:
-            print('\n@@@ Falha na operação: saldo insuficiente @@@\n')
+            print('\n@@@ Falha na operação: saldo insuficiente @@@')
         elif num_saques >= self._LIMITE_SAQUES:
-            print('\n@@@ Falha na operação: excedeu número máximos de saque @@@\n')
+            print('\n@@@ Falha na operação: excedeu número máximos de saque @@@')
         elif valor >= self._LIMITE:
-            print('\n@@@ Falha na operação: valor execede ao limite de saque @@@\n')
+            print('\n@@@ Falha na operação: valor execede ao limite de saque @@@')
         elif valor > 0 and valor <= self._LIMITE:
            return super().sacar(valor)
     
         else:
-            print('\n@@@ Falha na operação: valor inválido @@@\n')
+            print('\n@@@ Falha na operação: valor inválido @@@')
 
         
         return False
@@ -112,10 +112,12 @@ class Historico:
     
     def relatorio(self, tipo_transacao = None):
         for transacao in self._transacoes:
-            if tipo_transacao:
+            if tipo_transacao.lower() == transacao["tipo"].lower():
                 yield transacao
-            elif tipo_transacao == transacao["tipo"]:
+            else:
                 yield transacao
+            
+            
         
 
     # Retorna o número de transações realizadas no dia
@@ -123,7 +125,7 @@ class Historico:
         transacoes_atual = []
         data_atual = datetime.now().date()
         for transacao in self._transacoes:
-            data_tansacao = datetime.strftime(transacao["data"], "%d/%m/%Y %H:%M:%S").date()
+            data_tansacao = datetime.strptime(transacao["data"], "%d/%m/%Y %H:%M:%S").date()
             if data_atual == data_tansacao:
                 transacoes_atual.append(data_tansacao)
         return transacoes_atual
@@ -134,11 +136,11 @@ class Cliente:
         self._contas = []
 
     # realizar transações
-    def transacao(self, conta, transacao):
+    def transacao(self, conta, transacao, MAX_TRANSACOES = 10):
         # Analisa o número de transações diárias
         num_transacoes = len(conta._historico.transacoes_dia())
-        if num_transacoes >=10:
-            print("\n@@@ Falha na operação: exedeu o máximo de transações diárias @@@\n")
+        if num_transacoes >= MAX_TRANSACOES:
+            print("\n@@@ Falha na operação: exedeu o máximo de transações diárias @@@")
             return
         transacao.registrar(conta)
 
