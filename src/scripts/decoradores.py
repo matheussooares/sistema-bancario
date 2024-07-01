@@ -4,10 +4,17 @@ def log_transacao(funcao):
     
     def envelope(*args,**kw):
         print('===============================')
-        funcao(*args,**kw)
+        resultado = funcao(*args,**kw)
         data = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(f"{data}: {funcao.__name__.upper()}")
+        from pathlib import Path
+        ROOT_PATH = Path().resolve()
+        with open(ROOT_PATH/'src'/'data'/"log.txt","a", encoding='utf-8') as arquivo:
+            arquivo.write(
+                f"[{data}] função '{funcao.__name__.upper()}' executada com argumentos {args} e {kw}."
+                f"Retornou {resultado}\n"
+            )
         print('===============================')
+        return resultado
     
     return envelope
 

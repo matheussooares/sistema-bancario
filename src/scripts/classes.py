@@ -62,7 +62,6 @@ class ContaCorrente(Conta):
         super().__init__(**arg)
     
     def sacar(self, valor):
-
         # Fução que conta o número de saques
         def saques(historico):
             num_saque = 0
@@ -70,7 +69,6 @@ class ContaCorrente(Conta):
                 if transacao['tipo'] == "Saque":
                     num_saque +=1
             return num_saque
-        
 
         num_saques = saques(self._historico)
 
@@ -91,6 +89,10 @@ class ContaCorrente(Conta):
     
     def __str__(self):
         return f"""Agência:\t {self._agencia}\nC\C:\t {self._numero}\nTitular:\t {self._cliente._nome}"""
+    
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}: ('{self._agencia}', '{self._numero}', '{self._cliente._nome}')>"
+
 
 class Historico:
     def __init__(self):
@@ -154,6 +156,9 @@ class Pessoa(Cliente):
         self._nome = nome
         self._data_nascimento = data_nascimento
         super().__init__(**kw)
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}: ({self._cpf})>"
+
 
 class Transacao(ABC):
     @property

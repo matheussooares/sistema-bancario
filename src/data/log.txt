@@ -1,0 +1,9 @@
+[01/07/2024 13:02:29] função 'CRIAR_CLIENTE' executada com argumentos ([<Pessoa: (1)>],) e {}.Retornou None
+[01/07/2024 13:02:40] função 'CRIAR_CONTA' executada com argumentos ([<Pessoa: (1)>], [<ContaCorrente: ('0001', '1', '1')>], 1) e {}.Retornou None
+[01/07/2024 13:02:52] função 'DEPOSITAR' executada com argumentos ([<Pessoa: (1)>],) e {}.Retornou None
+[01/07/2024 13:03:02] função 'DEPOSITAR' executada com argumentos ([<Pessoa: (1)>],) e {}.Retornou None
+[01/07/2024 13:03:16] função 'CRIAR_CLIENTE' executada com argumentos ([<Pessoa: (1)>, <Pessoa: (2)>],) e {}.Retornou None
+[01/07/2024 13:03:25] função 'DEPOSITAR' executada com argumentos ([<Pessoa: (1)>, <Pessoa: (2)>],) e {}.Retornou None
+[01/07/2024 13:03:31] função 'CRIAR_CONTA' executada com argumentos ([<Pessoa: (1)>, <Pessoa: (2)>], [<ContaCorrente: ('0001', '1', '1')>, <ContaCorrente: ('0001', '2', 'jose')>], 2) e {}.Retornou None
+[01/07/2024 13:03:43] função 'DEPOSITAR' executada com argumentos ([<Pessoa: (1)>, <Pessoa: (2)>],) e {}.Retornou None
+[01/07/2024 13:05:03] função 'CRIAR_CLIENTE' executada com argumentos ([<Pessoa: (3)>],) e {}.Retornou None
